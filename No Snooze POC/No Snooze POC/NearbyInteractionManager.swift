@@ -8,7 +8,7 @@
 
 import NearbyInteraction
 import WatchConnectivity
-//import Combine
+import Combine
 import os.log
 
 class NearbyInteractionManager: NSObject, ObservableObject {

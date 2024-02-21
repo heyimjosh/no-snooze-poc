@@ -25,6 +25,8 @@
 		248053342B859D920020E4E3 /* LiveAudioPlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */; };
 		248053372B85B8E40020E4E3 /* NearbyInteractionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053362B85B8E40020E4E3 /* NearbyInteractionClient.swift */; };
 		248053392B85BC550020E4E3 /* NearbyInteractionClient+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053382B85BC550020E4E3 /* NearbyInteractionClient+Live.swift */; };
+		2480533C2B8656EF0020E4E3 /* WatchConnectivityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480533B2B8656EF0020E4E3 /* WatchConnectivityClient.swift */; };
+		2480533F2B865F680020E4E3 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480533E2B865F680020E4E3 /* WebSocketClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioPlayerClient.swift; sourceTree = "<group>"; };
 		248053362B85B8E40020E4E3 /* NearbyInteractionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyInteractionClient.swift; sourceTree = "<group>"; };
 		248053382B85BC550020E4E3 /* NearbyInteractionClient+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NearbyInteractionClient+Live.swift"; sourceTree = "<group>"; };
+		2480533B2B8656EF0020E4E3 /* WatchConnectivityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityClient.swift; sourceTree = "<group>"; };
+		2480533E2B865F680020E4E3 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 		2480530A2B8555090020E4E3 /* No Snooze POC */ = {
 			isa = PBXGroup;
 			children = (
+				2480533D2B865F590020E4E3 /* WebSocketClient */,
+				2480533A2B8656DA0020E4E3 /* WatchConnectivityClient */,
 				248053352B85B8CC0020E4E3 /* NearbyInteractionClient */,
 				248053302B859D5D0020E4E3 /* AudioPlayerClient */,
 				2480532B2B859D010020E4E3 /* AudioRecorderClient */,
@@ -138,6 +144,22 @@
 				248053382B85BC550020E4E3 /* NearbyInteractionClient+Live.swift */,
 			);
 			path = NearbyInteractionClient;
+			sourceTree = "<group>";
+		};
+		2480533A2B8656DA0020E4E3 /* WatchConnectivityClient */ = {
+			isa = PBXGroup;
+			children = (
+				2480533B2B8656EF0020E4E3 /* WatchConnectivityClient.swift */,
+			);
+			path = WatchConnectivityClient;
+			sourceTree = "<group>";
+		};
+		2480533D2B865F590020E4E3 /* WebSocketClient */ = {
+			isa = PBXGroup;
+			children = (
+				2480533E2B865F680020E4E3 /* WebSocketClient.swift */,
+			);
+			path = WebSocketClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,12 +245,14 @@
 				2480532F2B859D320020E4E3 /* LiveAudioRecorderClient.swift in Sources */,
 				2480530C2B8555090020E4E3 /* No_Snooze_POCApp.swift in Sources */,
 				2480531F2B855A320020E4E3 /* AlarmView.swift in Sources */,
+				2480533F2B865F680020E4E3 /* WebSocketClient.swift in Sources */,
 				2480531D2B8558AF0020E4E3 /* AlarmFeature.swift in Sources */,
 				248053392B85BC550020E4E3 /* NearbyInteractionClient+Live.swift in Sources */,
 				248053372B85B8E40020E4E3 /* NearbyInteractionClient.swift in Sources */,
 				248053322B859D720020E4E3 /* AudioPlayerClient.swift in Sources */,
 				2480532A2B859A8C0020E4E3 /* Models.swift in Sources */,
 				248053282B859A4F0020E4E3 /* Client.swift in Sources */,
+				2480533C2B8656EF0020E4E3 /* WatchConnectivityClient.swift in Sources */,
 				248053342B859D920020E4E3 /* LiveAudioPlayerClient.swift in Sources */,
 				248053232B8599C70020E4E3 /* Helper.swift in Sources */,
 			);
