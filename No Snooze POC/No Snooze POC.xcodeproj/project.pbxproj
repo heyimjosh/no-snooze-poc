@@ -14,6 +14,17 @@
 		2480531B2B85571D0020E4E3 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 2480531A2B85571D0020E4E3 /* ComposableArchitecture */; };
 		2480531D2B8558AF0020E4E3 /* AlarmFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480531C2B8558AF0020E4E3 /* AlarmFeature.swift */; };
 		2480531F2B855A320020E4E3 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480531E2B855A320020E4E3 /* AlarmView.swift */; };
+		248053212B85997E0020E4E3 /* NearbyInteractionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053202B85997E0020E4E3 /* NearbyInteractionManager.swift */; };
+		248053232B8599C70020E4E3 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053222B8599C70020E4E3 /* Helper.swift */; };
+		248053262B859A2F0020E4E3 /* Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053252B859A2F0020E4E3 /* Live.swift */; };
+		248053282B859A4F0020E4E3 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053272B859A4F0020E4E3 /* Client.swift */; };
+		2480532A2B859A8C0020E4E3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053292B859A8C0020E4E3 /* Models.swift */; };
+		2480532D2B859D1B0020E4E3 /* AudioRecorderClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480532C2B859D1B0020E4E3 /* AudioRecorderClient.swift */; };
+		2480532F2B859D320020E4E3 /* LiveAudioRecorderClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480532E2B859D320020E4E3 /* LiveAudioRecorderClient.swift */; };
+		248053322B859D720020E4E3 /* AudioPlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053312B859D720020E4E3 /* AudioPlayerClient.swift */; };
+		248053342B859D920020E4E3 /* LiveAudioPlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */; };
+		248053372B85B8E40020E4E3 /* NearbyInteractionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053362B85B8E40020E4E3 /* NearbyInteractionClient.swift */; };
+		248053392B85BC550020E4E3 /* NearbyInteractionClient+Live.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053382B85BC550020E4E3 /* NearbyInteractionClient+Live.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +35,17 @@
 		248053122B85550B0020E4E3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2480531C2B8558AF0020E4E3 /* AlarmFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFeature.swift; sourceTree = "<group>"; };
 		2480531E2B855A320020E4E3 /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
+		248053202B85997E0020E4E3 /* NearbyInteractionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyInteractionManager.swift; sourceTree = "<group>"; };
+		248053222B8599C70020E4E3 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		248053252B859A2F0020E4E3 /* Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Live.swift; sourceTree = "<group>"; };
+		248053272B859A4F0020E4E3 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		248053292B859A8C0020E4E3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		2480532C2B859D1B0020E4E3 /* AudioRecorderClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderClient.swift; sourceTree = "<group>"; };
+		2480532E2B859D320020E4E3 /* LiveAudioRecorderClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioRecorderClient.swift; sourceTree = "<group>"; };
+		248053312B859D720020E4E3 /* AudioPlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerClient.swift; sourceTree = "<group>"; };
+		248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioPlayerClient.swift; sourceTree = "<group>"; };
+		248053362B85B8E40020E4E3 /* NearbyInteractionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyInteractionClient.swift; sourceTree = "<group>"; };
+		248053382B85BC550020E4E3 /* NearbyInteractionClient+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NearbyInteractionClient+Live.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,12 +79,18 @@
 		2480530A2B8555090020E4E3 /* No Snooze POC */ = {
 			isa = PBXGroup;
 			children = (
+				248053352B85B8CC0020E4E3 /* NearbyInteractionClient */,
+				248053302B859D5D0020E4E3 /* AudioPlayerClient */,
+				2480532B2B859D010020E4E3 /* AudioRecorderClient */,
+				248053242B859A090020E4E3 /* SpeechClient */,
 				2480530B2B8555090020E4E3 /* No_Snooze_POCApp.swift */,
 				2480530D2B8555090020E4E3 /* ContentView.swift */,
 				2480530F2B85550B0020E4E3 /* Assets.xcassets */,
 				248053112B85550B0020E4E3 /* Preview Content */,
 				2480531C2B8558AF0020E4E3 /* AlarmFeature.swift */,
 				2480531E2B855A320020E4E3 /* AlarmView.swift */,
+				248053202B85997E0020E4E3 /* NearbyInteractionManager.swift */,
+				248053222B8599C70020E4E3 /* Helper.swift */,
 			);
 			path = "No Snooze POC";
 			sourceTree = "<group>";
@@ -73,6 +101,43 @@
 				248053122B85550B0020E4E3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		248053242B859A090020E4E3 /* SpeechClient */ = {
+			isa = PBXGroup;
+			children = (
+				248053252B859A2F0020E4E3 /* Live.swift */,
+				248053272B859A4F0020E4E3 /* Client.swift */,
+				248053292B859A8C0020E4E3 /* Models.swift */,
+			);
+			path = SpeechClient;
+			sourceTree = "<group>";
+		};
+		2480532B2B859D010020E4E3 /* AudioRecorderClient */ = {
+			isa = PBXGroup;
+			children = (
+				2480532C2B859D1B0020E4E3 /* AudioRecorderClient.swift */,
+				2480532E2B859D320020E4E3 /* LiveAudioRecorderClient.swift */,
+			);
+			path = AudioRecorderClient;
+			sourceTree = "<group>";
+		};
+		248053302B859D5D0020E4E3 /* AudioPlayerClient */ = {
+			isa = PBXGroup;
+			children = (
+				248053312B859D720020E4E3 /* AudioPlayerClient.swift */,
+				248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */,
+			);
+			path = AudioPlayerClient;
+			sourceTree = "<group>";
+		};
+		248053352B85B8CC0020E4E3 /* NearbyInteractionClient */ = {
+			isa = PBXGroup;
+			children = (
+				248053362B85B8E40020E4E3 /* NearbyInteractionClient.swift */,
+				248053382B85BC550020E4E3 /* NearbyInteractionClient+Live.swift */,
+			);
+			path = NearbyInteractionClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,9 +217,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				2480530E2B8555090020E4E3 /* ContentView.swift in Sources */,
+				2480532D2B859D1B0020E4E3 /* AudioRecorderClient.swift in Sources */,
+				248053212B85997E0020E4E3 /* NearbyInteractionManager.swift in Sources */,
+				248053262B859A2F0020E4E3 /* Live.swift in Sources */,
+				2480532F2B859D320020E4E3 /* LiveAudioRecorderClient.swift in Sources */,
 				2480530C2B8555090020E4E3 /* No_Snooze_POCApp.swift in Sources */,
 				2480531F2B855A320020E4E3 /* AlarmView.swift in Sources */,
 				2480531D2B8558AF0020E4E3 /* AlarmFeature.swift in Sources */,
+				248053392B85BC550020E4E3 /* NearbyInteractionClient+Live.swift in Sources */,
+				248053372B85B8E40020E4E3 /* NearbyInteractionClient.swift in Sources */,
+				248053322B859D720020E4E3 /* AudioPlayerClient.swift in Sources */,
+				2480532A2B859A8C0020E4E3 /* Models.swift in Sources */,
+				248053282B859A4F0020E4E3 /* Client.swift in Sources */,
+				248053342B859D920020E4E3 /* LiveAudioPlayerClient.swift in Sources */,
+				248053232B8599C70020E4E3 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
