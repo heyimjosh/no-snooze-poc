@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		244F5B902B8ED366007E8FA2 /* NearbyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F5B8F2B8ED366007E8FA2 /* NearbyClient.swift */; };
 		2480530C2B8555090020E4E3 /* No_Snooze_POCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480530B2B8555090020E4E3 /* No_Snooze_POCApp.swift */; };
 		2480530E2B8555090020E4E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480530D2B8555090020E4E3 /* ContentView.swift */; };
 		248053102B85550B0020E4E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2480530F2B85550B0020E4E3 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		244F5B8F2B8ED366007E8FA2 /* NearbyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyClient.swift; sourceTree = "<group>"; };
 		248053082B8555090020E4E3 /* No Snooze POC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Snooze POC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2480530B2B8555090020E4E3 /* No_Snooze_POCApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = No_Snooze_POCApp.swift; sourceTree = "<group>"; };
 		2480530D2B8555090020E4E3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		244F5B8E2B8ED338007E8FA2 /* NearbyClient */ = {
+			isa = PBXGroup;
+			children = (
+				244F5B8F2B8ED366007E8FA2 /* NearbyClient.swift */,
+			);
+			path = NearbyClient;
+			sourceTree = "<group>";
+		};
 		248052FF2B8555090020E4E3 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 		2480530A2B8555090020E4E3 /* No Snooze POC */ = {
 			isa = PBXGroup;
 			children = (
+				244F5B8E2B8ED338007E8FA2 /* NearbyClient */,
 				2480533D2B865F590020E4E3 /* WebSocketClient */,
 				2480533A2B8656DA0020E4E3 /* WatchConnectivityClient */,
 				248053352B85B8CC0020E4E3 /* NearbyInteractionClient */,
@@ -245,6 +256,7 @@
 				2480532F2B859D320020E4E3 /* LiveAudioRecorderClient.swift in Sources */,
 				2480530C2B8555090020E4E3 /* No_Snooze_POCApp.swift in Sources */,
 				2480531F2B855A320020E4E3 /* AlarmView.swift in Sources */,
+				244F5B902B8ED366007E8FA2 /* NearbyClient.swift in Sources */,
 				2480533F2B865F680020E4E3 /* WebSocketClient.swift in Sources */,
 				2480531D2B8558AF0020E4E3 /* AlarmFeature.swift in Sources */,
 				248053392B85BC550020E4E3 /* NearbyInteractionClient+Live.swift in Sources */,
