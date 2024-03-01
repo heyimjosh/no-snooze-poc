@@ -8,7 +8,6 @@
 
 import NearbyInteraction
 import WatchConnectivity
-import Combine
 import os.log
 
 enum NearbyInteractionError: Error {
@@ -25,98 +24,106 @@ enum NearbyInteractionError: Error {
   }
 }
 
-@globalActor final actor NearbyInteractionManager: NSObject, GlobalActor {
+final actor NearbyInteractionManager: NSObject {
   
-  static var shared = NearbyInteractionManager()
-  
-  var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation?
+  private var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation?
   
   private var didSendDiscoveryToken: Bool = false
   
-  var isConnected: Bool {
+  private var isConnected: Bool {
     return distanceContinuation != nil
   }
-
-  private var session: NISession?
-  private var sessionDelegate: niSessionDelegate?
+  
+  private var niSession: NISession?
+  private var niSessionDelegateVar: niSessionDelegate?
   
   override init() {
     super.init()
     
-    //initializeNISession()
-    // let's initialize this async from the client? maybe?
-    session = NISession()
-    let niSessionDelegate = niSessionDelegate()
-    session?.delegate = niSessionDelegate
-    session?.delegateQueue = DispatchQueue.main
+//    niSession = NISession()
+//    self.niSessionDelegateVar = niSessionDelegate()
+//    niSession?.delegate = self.niSessionDelegateVar
+//    niSession?.delegateQueue = DispatchQueue.main
+//    
+//    let wcSessionDelegate = wcSessionDelegate()
+//    WCSession.default.delegate = wcSessionDelegate
+//    WCSession.default.activate()
     
+  }
+  
+  func startStream() -> AsyncThrowingStream<Measurement<UnitLength>, Error> {
+    
+    initializeNISession()
+    initializeWCSession()
+    
+    return AsyncThrowingStream { continuation in
+      self.distanceContinuation = continuation
+      self.niSession.niSessionDelegateVar?.distanceContinuation = continuation
+    }
+  }
+  
+  private func initializeNISession() {
+    os_log("initializing the NISession")
+    niSession = NISession()
+    self.niSessionDelegateVar = niSessionDelegate()
+    niSession?.delegate = self.niSessionDelegateVar
+    niSession?.delegateQueue = DispatchQueue.main
+  }
+  
+  private func initializeWCSession() {
     let wcSessionDelegate = wcSessionDelegate()
     WCSession.default.delegate = wcSessionDelegate
     WCSession.default.activate()
   }
   
-  func startStream() -> AsyncThrowingStream<Measurement<UnitLength>, Error> {
-    return AsyncThrowingStream { continuation in
-      self.distanceContinuation = continuation
+  private func deinitializeNISession() {
+    os_log("invalidating and deinitializing the NISession")
+    niSession?.invalidate()
+    niSession = nil
+    didSendDiscoveryToken = false
+  }
+  
+  private func restartNISession() {
+    os_log("restarting the NISession")
+    if let config = niSession?.configuration {
+      niSession?.run(config)
+    }
+    // TODO: could there be a case where the session doesn't exist but we want to restart it?
+  }
+  
+  /// Send the local discovery token to the paired device
+  private func sendDiscoveryToken() {
+    guard let token = niSession?.discoveryToken else {
+      os_log("NIDiscoveryToken not available")
+      return
+    }
+    
+    guard let tokenData = try? NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true) else {
+      os_log("failed to encode NIDiscoveryToken")
+      return
+    }
+    
+    do {
+      try WCSession.default.updateApplicationContext([Helper.discoveryTokenKey: tokenData])
+      os_log("NIDiscoveryToken \(token) sent to counterpart")
+      didSendDiscoveryToken = true
+    } catch let error {
+      os_log("failed to send NIDiscoveryToken: \(error.localizedDescription)")
     }
   }
   
-    private func initializeNISession() {
-      os_log("initializing the NISession")
-      session = NISession()
-      let niSessionDelegate = niSessionDelegate()
-      session?.delegate = niSessionDelegate
-      session?.delegateQueue = DispatchQueue.main
-    }
+  /// When a discovery token is received, run the session
+  private func didReceiveDiscoveryToken(_ token: NIDiscoveryToken) {
     
-    private func deinitializeNISession() {
-      os_log("invalidating and deinitializing the NISession")
-      session?.invalidate()
-      session = nil
-      didSendDiscoveryToken = false
+    if niSession == nil {
+      initializeNISession()
     }
+    if !didSendDiscoveryToken { sendDiscoveryToken() }
     
-    private func restartNISession() {
-      os_log("restarting the NISession")
-      if let config = session?.configuration {
-        session?.run(config)
-      }
-    }
-    
-    /// Send the local discovery token to the paired device
-    private func sendDiscoveryToken() {
-      guard let token = session?.discoveryToken else {
-        os_log("NIDiscoveryToken not available")
-        return
-      }
-      
-      guard let tokenData = try? NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true) else {
-        os_log("failed to encode NIDiscoveryToken")
-        return
-      }
-      
-      do {
-        try WCSession.default.updateApplicationContext([Helper.discoveryTokenKey: tokenData])
-        os_log("NIDiscoveryToken \(token) sent to counterpart")
-        didSendDiscoveryToken = true
-      } catch let error {
-        os_log("failed to send NIDiscoveryToken: \(error.localizedDescription)")
-      }
-    }
-    
-    /// When a discovery token is received, run the session
-    private func didReceiveDiscoveryToken(_ token: NIDiscoveryToken) {
-      
-      if session == nil {
-        //TODO: add this back
-        //initializeNISession()
-      }
-      if !didSendDiscoveryToken { sendDiscoveryToken() }
-      
-      os_log("running NISession with peer token: \(token)")
-      let config = NINearbyPeerConfiguration(peerToken: token)
-      session?.run(config)
-    }
+    os_log("running NISession with peer token: \(token)")
+    let config = NINearbyPeerConfiguration(peerToken: token)
+    niSession?.run(config)
+  }
   
   final class niSessionDelegate: NSObject, NISessionDelegate {
     var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation?
@@ -144,7 +151,7 @@ enum NearbyInteractionError: Error {
     func session(_ session: NISession, didInvalidateWith error: Error) {
       
       guard let niError = error as? NIError else {
-        print("Unknown error: \(error)")
+        os_log("Unknown error: \(error)")
         return
       }
       
@@ -204,7 +211,7 @@ enum NearbyInteractionError: Error {
       }
     }
     
-  #if os(iOS)
+#if os(iOS)
     func sessionDidBecomeInactive(_ session: WCSession) {
       os_log("WCSession did become inactive")
     }
@@ -220,7 +227,7 @@ enum NearbyInteractionError: Error {
                 - isWatchAppInstalled: \(session.isWatchAppInstalled)
               """)
     }
-  #endif
+#endif
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
       if let tokenData = applicationContext[Helper.discoveryTokenKey] as? Data {

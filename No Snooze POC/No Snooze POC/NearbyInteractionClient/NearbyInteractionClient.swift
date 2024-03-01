@@ -32,10 +32,10 @@ extension NearbyInteractionClient: DependencyKey {
     
     /// If NearbyInteraction is supported, initialize the Manager and start the client
     if isSupported {
+      let niManager = NearbyInteractionManager()
       return Self(
         startNearbyInteractionClient: {
-          return await NearbyInteractionManager.shared.startStream()
-          
+          return await niManager.startStream()
         },
         finishTask: {
           //await speech.finishTask()
