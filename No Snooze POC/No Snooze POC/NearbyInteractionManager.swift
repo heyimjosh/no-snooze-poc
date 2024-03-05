@@ -75,7 +75,9 @@ final actor NearbyInteractionManager: NSObject {
     niSession?.delegate = self.niSessionDelegate
     niSession?.delegateQueue = DispatchQueue.main
     
-    self.wcSessionDelegate = wcSessionDelegateClass()
+    self.wcSessionDelegate = wcSessionDelegateClass(distanceContinuation: newContinuation, didSendDiscoveryToken: self.didSendDiscoveryToken, sendDiscoveryToken: {self.sendDiscoveryToken()}, didReceiveDiscoveryToken: { discoveryToken in
+      print("DID RECEIVE DISCOVERY TOKEN: \(discoveryToken)")
+    })
     WCSession.default.delegate = wcSessionDelegate
     WCSession.default.activate()
     
@@ -91,9 +93,10 @@ final actor NearbyInteractionManager: NSObject {
 //  }
   
   private func initializeWCSession() {
-    let wcSessionDelegate = wcSessionDelegateClass()
-    WCSession.default.delegate = wcSessionDelegate
-    WCSession.default.activate()
+    print("Init wc session")
+//    let wcSessionDelegate = wcSessionDelegateClass(distanceContinuation: <#T##AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation#>, didSendDiscoveryToken: <#T##Bool#>, sendDiscoveryToken: <#T##() -> Void#>, didReceiveDiscoveryToken: <#T##(NIDiscoveryToken) -> Void#>)
+//    WCSession.default.delegate = wcSessionDelegate
+//    WCSession.default.activate()
   }
   
   private func deinitializeNISession() {
@@ -113,6 +116,7 @@ final actor NearbyInteractionManager: NSObject {
   
   /// Send the local discovery token to the paired device
   private func sendDiscoveryToken() {
+    print("SENDING DISCOVERY TOKEN")
     guard let token = niSession?.discoveryToken else {
       os_log("NIDiscoveryToken not available")
       return
@@ -124,7 +128,7 @@ final actor NearbyInteractionManager: NSObject {
     }
     
     do {
-      try WCSession.default.updateApplicationContext([Helper.discoveryTokenKey: tokenData])
+      try self.wcSession?.updateApplicationContext([Helper.discoveryTokenKey: tokenData])
       os_log("NIDiscoveryToken \(token) sent to counterpart")
       didSendDiscoveryToken = true
     } catch let error {
@@ -182,6 +186,7 @@ final actor NearbyInteractionManager: NSObject {
     }
     
     func session(_ session: NISession, didUpdate nearbyObjects: [NINearbyObject]) {
+      print("DID UPDATE")
       if let object = nearbyObjects.first, let distance = object.distance {
         os_log("object distance: \(distance) meters")
         //self.distance = Measurement(value: Double(distance), unit: .meters)
@@ -206,12 +211,28 @@ final actor NearbyInteractionManager: NSObject {
   
   final class wcSessionDelegateClass: NSObject, WCSessionDelegate {
     
-    var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation?
+    var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation
     var didSendDiscoveryToken: Bool = false
-    var sendDiscoveryToken: (() -> Void)?
-    var didReceiveDiscoveryToken: ((_ token: NIDiscoveryToken) -> Void)?
+    var sendDiscoveryToken: () -> Void
+    var didReceiveDiscoveryToken: (_ token: NIDiscoveryToken) -> Void
+    
+    init(distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation, didSendDiscoveryToken: Bool, sendDiscoveryToken: @escaping () -> Void, didReceiveDiscoveryToken: @escaping (_: NIDiscoveryToken) -> Void) {
+      self.distanceContinuation = distanceContinuation
+      self.didSendDiscoveryToken = didSendDiscoveryToken
+      self.sendDiscoveryToken = sendDiscoveryToken
+      self.didReceiveDiscoveryToken = didReceiveDiscoveryToken
+    }
+    
+//    init(distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation,
+//         restartNISession: @escaping () -> Void,
+//         deinitializeNISession: @escaping () -> Void) {
+//      self.distanceContinuation = distanceContinuation
+//      self.restartNISession = restartNISession
+//      self.deinitializeNISession = deinitializeNISession
+//    }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+      print("activationDidCompleteWith")
       guard error == nil else {
         os_log("WCSession failed to activate: \(error!.localizedDescription)")
         return
@@ -221,7 +242,7 @@ final actor NearbyInteractionManager: NSObject {
       case .activated:
         os_log("WCSession is activated")
         if !self.didSendDiscoveryToken {
-          (sendDiscoveryToken ?? {})()
+          sendDiscoveryToken()
         }
       case .inactive:
         os_log("WCSession is inactive")
@@ -251,11 +272,12 @@ final actor NearbyInteractionManager: NSObject {
 #endif
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
+      print("RECEIVED APPLICATION CONTEXT")
       if let tokenData = applicationContext[Helper.discoveryTokenKey] as? Data {
         if let token = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NIDiscoveryToken.self, from: tokenData) {
           os_log("received NIDiscoveryToken \(token) from counterpart")
           // TODO: fix this
-          (didReceiveDiscoveryToken!)(token)
+          didReceiveDiscoveryToken(token)
         } else {
           os_log("failed to decode NIDiscoveryToken")
         }

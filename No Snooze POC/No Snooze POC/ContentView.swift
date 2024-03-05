@@ -14,6 +14,7 @@ struct AppFeature {
   @ObservableState
   struct State: Equatable {
     var dummyVar: String = "dummy"
+    var distance: Double = 0.0
   }
   
   enum Action {
@@ -45,6 +46,7 @@ struct AppFeature {
         
       case .distanceYielded(distance: let distance):
         print("Distance yielded: \(distance)")
+        state.distance = distance
         return .none
       case .errorYielded(error: let error):
         print("Error yielded: \(error.localizedDescription)")
@@ -65,7 +67,7 @@ struct ContentView: View {
       Image(systemName: "globe")
         .imageScale(.large)
         .foregroundStyle(.tint)
-      Text("Hello, dude!")
+      Text("Hello, \(store.distance)")
     }
     .padding()
     .background(.green)
