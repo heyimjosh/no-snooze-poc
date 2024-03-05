@@ -10,14 +10,14 @@ import ComposableArchitecture
 
 @main
 struct No_Snooze_POCApp: App {
-  static let store = Store(initialState: AlarmFeature.State()) {
-    AlarmFeature()
+  static let store = Store(initialState: AppFeature.State()) {
+    AppFeature()
       ._printChanges()
   }
   
   var body: some Scene {
     WindowGroup {
-      AlarmView(store: No_Snooze_POCApp.store)
+      ContentView(store: No_Snooze_POCApp.store)
     }
   }
 }

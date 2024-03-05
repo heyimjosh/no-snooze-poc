@@ -13,6 +13,7 @@ import os.log
 enum NearbyInteractionError: Error {
   case nearbyInteractionNotSupported
   case unknownNearbyInteractionSession(errorMessage: String)
+  case nearbyInteractionSessionSuspended
   
   var errorDescription: String? {
     switch self {
@@ -20,6 +21,8 @@ enum NearbyInteractionError: Error {
       return errorMessage
     case .nearbyInteractionNotSupported:
       return "Your device does not support NearbyInteraction"
+    case .nearbyInteractionSessionSuspended:
+      return "NearbyInteraction session suspended"
     }
   }
 }
@@ -35,7 +38,10 @@ final actor NearbyInteractionManager: NSObject {
   }
   
   private var niSession: NISession?
-  private var niSessionDelegateVar: niSessionDelegate?
+  private var niSessionDelegate: niSessionDelegateClass?
+  
+  private var wcSession: WCSession?
+  private var wcSessionDelegate: wcSessionDelegateClass?
   
   override init() {
     super.init()
@@ -53,25 +59,39 @@ final actor NearbyInteractionManager: NSObject {
   
   func startStream() -> AsyncThrowingStream<Measurement<UnitLength>, Error> {
     
-    initializeNISession()
-    initializeWCSession()
-    
-    return AsyncThrowingStream { continuation in
-      self.distanceContinuation = continuation
-      self.niSession.niSessionDelegateVar?.distanceContinuation = continuation
+    var newContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation!
+    let stream = AsyncThrowingStream { continuation in
+      newContinuation = continuation
     }
+    
+    print("HERE DUDE")
+    
+    niSession = NISession()
+    self.niSessionDelegate = niSessionDelegateClass(
+      distanceContinuation: newContinuation,
+      restartNISession: { self.restartNISession() },
+      deinitializeNISession: { self.deinitializeNISession() }
+    )
+    niSession?.delegate = self.niSessionDelegate
+    niSession?.delegateQueue = DispatchQueue.main
+    
+    self.wcSessionDelegate = wcSessionDelegateClass()
+    WCSession.default.delegate = wcSessionDelegate
+    WCSession.default.activate()
+    
+    return stream
   }
   
-  private func initializeNISession() {
-    os_log("initializing the NISession")
-    niSession = NISession()
-    self.niSessionDelegateVar = niSessionDelegate()
-    niSession?.delegate = self.niSessionDelegateVar
-    niSession?.delegateQueue = DispatchQueue.main
-  }
+//  private func initializeNISession() {
+//    os_log("initializing the NISession")
+//    niSession = NISession()
+//    self.niSessionDelegate = niSessionDelegateClass()
+//    niSession?.delegate = self.niSessionDelegate
+//    niSession?.delegateQueue = DispatchQueue.main
+//  }
   
   private func initializeWCSession() {
-    let wcSessionDelegate = wcSessionDelegate()
+    let wcSessionDelegate = wcSessionDelegateClass()
     WCSession.default.delegate = wcSessionDelegate
     WCSession.default.activate()
   }
@@ -116,7 +136,7 @@ final actor NearbyInteractionManager: NSObject {
   private func didReceiveDiscoveryToken(_ token: NIDiscoveryToken) {
     
     if niSession == nil {
-      initializeNISession()
+      os_log("How was there no session?")
     }
     if !didSendDiscoveryToken { sendDiscoveryToken() }
     
@@ -125,14 +145,14 @@ final actor NearbyInteractionManager: NSObject {
     niSession?.run(config)
   }
   
-  final class niSessionDelegate: NSObject, NISessionDelegate {
-    var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation?
-    var restartNISession: (() -> Void)?
-    var deinitializeNISession: (() -> Void)?
+  final class niSessionDelegateClass: NSObject, NISessionDelegate {
+    var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation
+    var restartNISession: () -> Void
+    var deinitializeNISession: () -> Void
     
-    init(distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation? = nil,
-         restartNISession: (() -> Void)? = nil,
-         deinitializeNISession: (() -> Void)? = nil) {
+    init(distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation,
+         restartNISession: @escaping () -> Void,
+         deinitializeNISession: @escaping () -> Void) {
       self.distanceContinuation = distanceContinuation
       self.restartNISession = restartNISession
       self.deinitializeNISession = deinitializeNISession
@@ -140,12 +160,13 @@ final actor NearbyInteractionManager: NSObject {
     
     func sessionWasSuspended(_ session: NISession) {
       os_log("NISession was suspended")
-      distanceContinuation = nil
+      distanceContinuation.finish(throwing: NearbyInteractionError.nearbyInteractionSessionSuspended)
+      deinitializeNISession()
     }
     
     func sessionSuspensionEnded(_ session: NISession) {
       os_log("NISession suspension ended")
-      (restartNISession ?? {})()
+//      (restartNISession ?? {})()
     }
     
     func session(_ session: NISession, didInvalidateWith error: Error) {
@@ -156,7 +177,7 @@ final actor NearbyInteractionManager: NSObject {
       }
       
       os_log("NISession did invalidate with error: \(error.localizedDescription)")
-      distanceContinuation = nil
+      //distanceContinuation = nil
       // TODO: this doesn't nil out anything above, just nils out here
     }
     
@@ -164,7 +185,7 @@ final actor NearbyInteractionManager: NSObject {
       if let object = nearbyObjects.first, let distance = object.distance {
         os_log("object distance: \(distance) meters")
         //self.distance = Measurement(value: Double(distance), unit: .meters)
-        self.distanceContinuation?.yield(Measurement(value: Double(distance), unit: .meters))
+        self.distanceContinuation.yield(Measurement(value: Double(distance), unit: .meters))
       }
     }
     
@@ -172,18 +193,18 @@ final actor NearbyInteractionManager: NSObject {
       switch reason {
       case .peerEnded:
         os_log("the remote peer ended the connection")
-        (deinitializeNISession ?? {})()
+        //(deinitializeNISession ?? {})()
       case .timeout:
         os_log("peer connection timed out")
-        (restartNISession ?? {})()
+        //(restartNISession ?? {})()
       default:
         os_log("disconnected from peer for an unknown reason")
       }
-      distanceContinuation = nil
+      //distanceContinuation = nil
     }
   }
   
-  final class wcSessionDelegate: NSObject, WCSessionDelegate {
+  final class wcSessionDelegateClass: NSObject, WCSessionDelegate {
     
     var distanceContinuation: AsyncThrowingStream<Measurement<UnitLength>, Error>.Continuation?
     var didSendDiscoveryToken: Bool = false

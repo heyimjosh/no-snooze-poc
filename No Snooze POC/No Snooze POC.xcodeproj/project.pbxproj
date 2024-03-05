@@ -23,7 +23,40 @@
 		248053322B859D720020E4E3 /* AudioPlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053312B859D720020E4E3 /* AudioPlayerClient.swift */; };
 		248053342B859D920020E4E3 /* LiveAudioPlayerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */; };
 		2480533F2B865F680020E4E3 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480533E2B865F680020E4E3 /* WebSocketClient.swift */; };
+		248053CF2B97BD6E0020E4E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248053CE2B97BD6E0020E4E3 /* Assets.xcassets */; };
+		248053D22B97BD6E0020E4E3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248053D12B97BD6E0020E4E3 /* Preview Assets.xcassets */; };
+		248053D52B97BD6E0020E4E3 /* No Snooze POC Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 248053C82B97BD6B0020E4E3 /* No Snooze POC Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		248053DA2B97C8460020E4E3 /* No_Snooze_POCApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480530B2B8555090020E4E3 /* No_Snooze_POCApp.swift */; };
+		248053DB2B97C8490020E4E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2480530D2B8555090020E4E3 /* ContentView.swift */; };
+		248053DC2B97C84D0020E4E3 /* NearbyInteractionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F5B8F2B8ED366007E8FA2 /* NearbyInteractionClient.swift */; };
+		248053DD2B97C8590020E4E3 /* NearbyInteractionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053202B85997E0020E4E3 /* NearbyInteractionManager.swift */; };
+		248053DE2B97C85B0020E4E3 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248053222B8599C70020E4E3 /* Helper.swift */; };
+		248053E02B97C96A0020E4E3 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 248053DF2B97C96A0020E4E3 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		248053D32B97BD6E0020E4E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 248053002B8555090020E4E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 248053C72B97BD6B0020E4E3;
+			remoteInfo = "No Snooze POC Watch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		248053D92B97BD6E0020E4E3 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				248053D52B97BD6E0020E4E3 /* No Snooze POC Watch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		244F5B8F2B8ED366007E8FA2 /* NearbyInteractionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyInteractionClient.swift; sourceTree = "<group>"; };
@@ -42,6 +75,9 @@
 		248053312B859D720020E4E3 /* AudioPlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerClient.swift; sourceTree = "<group>"; };
 		248053332B859D920020E4E3 /* LiveAudioPlayerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioPlayerClient.swift; sourceTree = "<group>"; };
 		2480533E2B865F680020E4E3 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
+		248053C82B97BD6B0020E4E3 /* No Snooze POC Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "No Snooze POC Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		248053CE2B97BD6E0020E4E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		248053D12B97BD6E0020E4E3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +86,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2480531B2B85571D0020E4E3 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		248053C52B97BD6B0020E4E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				248053E02B97C96A0020E4E3 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				2480530A2B8555090020E4E3 /* No Snooze POC */,
+				248053C92B97BD6B0020E4E3 /* No Snooze POC Watch Watch App */,
 				248053092B8555090020E4E3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -76,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				248053082B8555090020E4E3 /* No Snooze POC.app */,
+				248053C82B97BD6B0020E4E3 /* No Snooze POC Watch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +180,23 @@
 			path = WebSocketClient;
 			sourceTree = "<group>";
 		};
+		248053C92B97BD6B0020E4E3 /* No Snooze POC Watch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				248053CE2B97BD6E0020E4E3 /* Assets.xcassets */,
+				248053D02B97BD6E0020E4E3 /* Preview Content */,
+			);
+			path = "No Snooze POC Watch Watch App";
+			sourceTree = "<group>";
+		};
+		248053D02B97BD6E0020E4E3 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				248053D12B97BD6E0020E4E3 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,10 +207,12 @@
 				248053042B8555090020E4E3 /* Sources */,
 				248053052B8555090020E4E3 /* Frameworks */,
 				248053062B8555090020E4E3 /* Resources */,
+				248053D92B97BD6E0020E4E3 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				248053D42B97BD6E0020E4E3 /* PBXTargetDependency */,
 			);
 			name = "No Snooze POC";
 			packageProductDependencies = (
@@ -155,6 +220,26 @@
 			);
 			productName = "No Snooze POC";
 			productReference = 248053082B8555090020E4E3 /* No Snooze POC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		248053C72B97BD6B0020E4E3 /* No Snooze POC Watch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 248053D62B97BD6E0020E4E3 /* Build configuration list for PBXNativeTarget "No Snooze POC Watch Watch App" */;
+			buildPhases = (
+				248053C42B97BD6B0020E4E3 /* Sources */,
+				248053C52B97BD6B0020E4E3 /* Frameworks */,
+				248053C62B97BD6B0020E4E3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "No Snooze POC Watch Watch App";
+			packageProductDependencies = (
+				248053DF2B97C96A0020E4E3 /* ComposableArchitecture */,
+			);
+			productName = "No Snooze POC Watch Watch App";
+			productReference = 248053C82B97BD6B0020E4E3 /* No Snooze POC Watch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -168,6 +253,9 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					248053072B8555090020E4E3 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					248053C72B97BD6B0020E4E3 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
@@ -189,6 +277,7 @@
 			projectRoot = "";
 			targets = (
 				248053072B8555090020E4E3 /* No Snooze POC */,
+				248053C72B97BD6B0020E4E3 /* No Snooze POC Watch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -200,6 +289,15 @@
 			files = (
 				248053132B85550B0020E4E3 /* Preview Assets.xcassets in Resources */,
 				248053102B85550B0020E4E3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		248053C62B97BD6B0020E4E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				248053D22B97BD6E0020E4E3 /* Preview Assets.xcassets in Resources */,
+				248053CF2B97BD6E0020E4E3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +324,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		248053C42B97BD6B0020E4E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				248053DC2B97C84D0020E4E3 /* NearbyInteractionClient.swift in Sources */,
+				248053DD2B97C8590020E4E3 /* NearbyInteractionManager.swift in Sources */,
+				248053DA2B97C8460020E4E3 /* No_Snooze_POCApp.swift in Sources */,
+				248053DB2B97C8490020E4E3 /* ContentView.swift in Sources */,
+				248053DE2B97C85B0020E4E3 /* Helper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		248053D42B97BD6E0020E4E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 248053C72B97BD6B0020E4E3 /* No Snooze POC Watch Watch App */;
+			targetProxy = 248053D32B97BD6E0020E4E3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		248053142B85550B0020E4E3 /* Debug */ = {
@@ -351,6 +469,7 @@
 		248053172B85550B0020E4E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -381,6 +500,7 @@
 		248053182B85550B0020E4E3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -408,6 +528,66 @@
 			};
 			name = Release;
 		};
+		248053D72B97BD6E0020E4E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"No Snooze POC Watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 3ZSY9E5XKM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "No Snooze POC Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.joshdavis.No-Snooze-POC";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joshdavis.No-Snooze-POC.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		248053D82B97BD6E0020E4E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"No Snooze POC Watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 3ZSY9E5XKM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "No Snooze POC Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.joshdavis.No-Snooze-POC";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.joshdavis.No-Snooze-POC.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -429,6 +609,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		248053D62B97BD6E0020E4E3 /* Build configuration list for PBXNativeTarget "No Snooze POC Watch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				248053D72B97BD6E0020E4E3 /* Debug */,
+				248053D82B97BD6E0020E4E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -444,6 +633,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		2480531A2B85571D0020E4E3 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 248053192B85571D0020E4E3 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		248053DF2B97C96A0020E4E3 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 248053192B85571D0020E4E3 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;

@@ -19,6 +19,13 @@ struct NearbyInteractionClient {
   var finishTask: @Sendable () async -> Void
 }
 
+extension DependencyValues {
+  var nearbyInteractionClient: NearbyInteractionClient {
+    get { self[NearbyInteractionClient.self] }
+    set { self[NearbyInteractionClient.self] = newValue }
+  }
+}
+
 extension NearbyInteractionClient: DependencyKey {
   static var liveValue: Self {
     
@@ -32,6 +39,7 @@ extension NearbyInteractionClient: DependencyKey {
     
     /// If NearbyInteraction is supported, initialize the Manager and start the client
     if isSupported {
+      print("Supported... initializing the NearbyInteractionManager")
       let niManager = NearbyInteractionManager()
       return Self(
         startNearbyInteractionClient: {
